@@ -64,6 +64,25 @@ public class TicTacToe {
         return true;
     }
 
+    private static boolean winner(){
+    
+        for (int i = 0; i <= 2; i++) {
+            if(TicTacToe.board[i][0].equals(TicTacToe.board[i][1]) && TicTacToe.board[i][1].equals(TicTacToe.board[i][2])) {
+                return true;
+        }
+    }
+
+    for (int i = 0; i <= 2; i++) {
+            if(TicTacToe.board[0][i].equals(TicTacToe.board[1][i]) && TicTacToe.board[i][i].equals(TicTacToe.board[2][i])) {
+                return true;
+        }
+
+    }
+
+    return false;
+
+    }
+
     public static void main(String[] args) {
         System.out.println(TicTacToe.gameName);
         enterPositions();
@@ -94,7 +113,14 @@ public class TicTacToe {
                 break;
             }
             changePlayer();
+
+            if (winner()){
+                System.out.println("Felicidades jugador: " + TicTacToe.player + " has ganado!");
+                break;
+            }
         }
+
+
         
         sc.close();
     }
