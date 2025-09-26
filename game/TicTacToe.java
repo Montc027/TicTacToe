@@ -10,53 +10,58 @@ public class TicTacToe {
 
     private static String player = "X";
 
-    // cree el tablero
+    public static final String RESET = "\u001B[0m";
+    public static final String RED = "\u001B[31m";
+    public static final String BLUE = "\u001B[34m";
+
     private static String[][] board = {
-            { "1", "2", "3" },
-            { "4", "5", "6" },
-            { "7", "8", "9" }
+            { "_", "_", "_" },
+            { "_", "_", "_" },
+            { "_", "_", "_" }
     };
 
-    private static Map<Integer, Integer[]> positions = new HashMap<>();
-
-    // Metodo cargar posisciones
-    private static void enterPositions() {
-        TicTacToe.positions.put(1, new Integer[] { 0, 0 });
-        TicTacToe.positions.put(2, new Integer[] { 0, 1 });
-        TicTacToe.positions.put(3, new Integer[] { 0, 2 });
-        TicTacToe.positions.put(4, new Integer[] { 1, 0 });
-        TicTacToe.positions.put(5, new Integer[] { 1, 1 });
-        TicTacToe.positions.put(6, new Integer[] { 1, 2 });
-        TicTacToe.positions.put(7, new Integer[] { 2, 0 });
-        TicTacToe.positions.put(8, new Integer[] { 2, 1 });
-        TicTacToe.positions.put(9, new Integer[] { 2, 2 });
-    }
-
-    // metodo pinte el tablero
     private static void paintboard() {
+        System.out.print("    ");
+
+        for (int j = 0; j <= 2; j++) {
+            System.out.print(j + "   ");
+        }
+        System.out.println();
+
         for (int i = 0; i <= 2; i++) {
             System.out.println(" -------------");
-            System.out.print(" | ");
+            System.out.print(i + " | ");
             for (int j = 0; j <= 2; j++) {
-                System.out.print(TicTacToe.board[i][j] + " | ");
+                String cell = board[i][j];
+                if (cell.equals("X")) {
+                    System.out.print(RED + "X" + RESET + " | ");
+                } else if (cell.equals("O")) {
+                    System.out.print(BLUE + "O" + RESET + " | ");
+                } else {
+                    System.out.print(cell + " | ");
+                }
             }
             System.out.println();
         }
         System.out.println(" -------------");
     }
 
-    public static void changePlayer(){
-        if (TicTacToe.player.equals("X")){
+    public static void changePlayer() {
+        if (TicTacToe.player.equals("X")) {
             TicTacToe.player = "O";
         } else {
             TicTacToe.player = "X";
         }
     }
 
-    private static boolean fullBoard(){
+    private static void printTurn() {
+        System.out.println("Turno del jugador: " + TicTacToe.player);
+    }
+
+    private static boolean fullBoard() {
         for (int i = 0; i <= 2; i++) {
             for (int j = 0; j <= 2; j++) {
-                if (!TicTacToe.board[i][j].equals("X") && !TicTacToe.board[i][j].equals("O")){
+                if (!TicTacToe.board[i][j].equals("X") && !TicTacToe.board[i][j].equals("O")) {
                     return false;
                 }
             }
@@ -64,64 +69,96 @@ public class TicTacToe {
         return true;
     }
 
-    private static boolean winner(){
-    
+    private static boolean winner() {
+
         for (int i = 0; i <= 2; i++) {
-            if(TicTacToe.board[i][0].equals(TicTacToe.board[i][1]) && TicTacToe.board[i][1].equals(TicTacToe.board[i][2])) {
+            if (board[i][0].equals(board[i][1]) &&
+                    board[i][1].equals(board[i][2]) &&
+                    (board[i][0].equals("X") || board[i][0].equals("O"))) {
                 return true;
-        }
-    }
-
-    for (int i = 0; i <= 2; i++) {
-            if(TicTacToe.board[0][i].equals(TicTacToe.board[1][i]) && TicTacToe.board[i][i].equals(TicTacToe.board[2][i])) {
-                return true;
+            }
         }
 
-    }
+        for (int i = 0; i <= 2; i++) {
+            if (board[0][i].equals(board[1][i]) &&
+                    board[1][i].equals(board[2][i]) &&
+                    (board[0][i].equals("X") || board[0][i].equals("O"))) {
+                return true;
+            }
+        }
 
-    return false;
+        if (board[0][0].equals(board[1][1]) &&
+                board[1][1].equals(board[2][2]) &&
+                (board[1][1].equals("X") || board[1][1].equals("O"))) {
+            return true;
+        }
+
+        if (board[0][2].equals(board[1][1]) &&
+                board[1][1].equals(board[2][0]) &&
+                (board[1][1].equals("X") || board[1][1].equals("O"))) {
+            return true;
+        }
+
+        return false;
 
     }
 
     public static void main(String[] args) {
         System.out.println(TicTacToe.gameName);
-        enterPositions();
         paintboard();
         Scanner sc = new Scanner(System.in);
+        printTurn();
 
         while (true) {
-            System.out.println("ingresa la posición a jugar");
-            int chosenPosition = sc.nextInt();
+            System.out.println("Ingresa la fila y columna separados por espacio (fila columna): ");
+            String input = sc.nextLine();
+            String[] parts = input.trim().split(" ");
 
-            if (!TicTacToe.positions.containsKey(chosenPosition)) {
-                System.out.println("posición no valida, elige otra");
+            if (parts.length != 2) {
+                System.out.println("Formato incorrecto, ingresa fila y columna separados por espacio.");
                 continue;
             }
 
-            System.out.println("tu posición elegida es: " + chosenPosition);
-            Integer[] coordinates = TicTacToe.positions.get(chosenPosition);
-
-            if (TicTacToe.board[coordinates[0]][coordinates[1]].equals("X") || TicTacToe.board[coordinates[0]][coordinates[1]].equals("O")) {
-                System.out.println("posición ya ocupada, elige otra");
+            int fila, columna;
+            try {
+                fila = Integer.parseInt(parts[0]);
+                columna = Integer.parseInt(parts[1]);
+            } catch (NumberFormatException e) {
+                System.out.println("Debes ingresar números válidos.");
                 continue;
             }
 
-            TicTacToe.board[coordinates[0]][coordinates[1]] = TicTacToe.player;
+            if (fila < 0 || fila > 2 || columna < 0 || columna > 2) {
+                System.out.println("Coordenadas fuera de rango (0-2), intenta de nuevo.");
+                continue;
+            }
+
+            if (board[fila][columna].equals("X") || board[fila][columna].equals("O")) {
+                System.out.println("Esa casilla ya está ocupada, elige otra.");
+                continue;
+            }
+
+            board[fila][columna] = player;
             paintboard();
-            if (fullBoard()){
-                System.out.println("El tablero esta lleno, el juego ha terminado en empate");
-                break;
-            }
-            changePlayer();
 
-            if (winner()){
-                System.out.println("Felicidades jugador: " + TicTacToe.player + " has ganado!");
+            if (winner()) {
+                if (player.equals("X")) {
+                    System.out.println("Felicidades " + RED + "X" + RESET + " has ganado!");
+                } else {
+                    System.out.println("Felicidades " + BLUE + "O" + RESET + " has ganado!");
+                }
                 break;
             }
+
+            if (fullBoard()) {
+                System.out.println("El tablero está lleno, el juego ha terminado en empate.");
+                break;
+            }
+
+            changePlayer();
+            printTurn();
         }
 
-
-        
         sc.close();
     }
 
