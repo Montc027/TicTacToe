@@ -1,8 +1,8 @@
-package game.src.main.java;
+package com.game;
 
-import game.src.main.java.com.game.Board;
-import game.src.main.java.com.game.Console;
-import game.src.main.java.com.game.Player;
+/* import com.game.Player;
+import com.game.Console; */
+
 
 public class Game {
     private final Board board;

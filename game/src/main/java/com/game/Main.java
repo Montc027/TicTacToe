@@ -1,6 +1,6 @@
-package game.src.main.java.com.game;
+package com.game;
 
-import game.src.main.java.Game;
+
 
 public class Main {
     public static void main(String[] args) {

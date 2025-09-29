@@ -1,4 +1,4 @@
-package game.src.main.java.com.game;
+package com.game;
 
 public class Player {
     private final String symbol;

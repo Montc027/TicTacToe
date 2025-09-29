@@ -1,4 +1,4 @@
-package game.src.main.java.com.game;
+package com.game;
 
 public class Board {
     private final String[][] cells;
@@ -30,7 +30,7 @@ public class Board {
     }
 
     public boolean hasWinner() {
-        // Filas
+        
         for (int i = 0; i < 3; i++) {
             if (!cells[i][0].equals("_") &&
                 cells[i][0].equals(cells[i][1]) &&

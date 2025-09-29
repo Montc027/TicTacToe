@@ -1,4 +1,4 @@
-package game.src.test.java.com.game;
+package com.game;
 
 public @interface Test {
 

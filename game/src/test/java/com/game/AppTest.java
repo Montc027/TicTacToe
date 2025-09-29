@@ -1,4 +1,4 @@
-package game.src.test.java.com.game;
+package com.game;
 
 /**
  * Unit test for simple App.
@@ -15,7 +15,7 @@ public class AppTest
     }
 
     private void assertTrue(boolean b) {
-        // TODO Auto-generated method stub
+
         throw new UnsupportedOperationException("Unimplemented method 'assertTrue'");
     }
 }
