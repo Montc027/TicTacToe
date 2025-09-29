@@ -2,8 +2,6 @@ package com.game;
 
 /* import com.game.Player;
 import com.game.Console; */
-
-
 public class Game {
     private final Board board;
     private final Player player1;
@@ -22,12 +20,14 @@ public class Game {
         printBoard();
 
         while (true) {
+            Console.println(" ");
             Console.println("Turno del jugador: " + currentPlayer.getColor() + currentPlayer.getSymbol() + "\u001B[0m");
             Console.println("Ingresa la fila y columna separados por espacio (fila columna): ");
             String input = Console.readLine();
             String[] parts = input.trim().split(" ");
 
             if (parts.length != 2) {
+                Console.println(" ");
                 Console.println("Formato incorrecto, ingresa fila y columna separados por espacio.");
                 continue;
             }
@@ -37,6 +37,7 @@ public class Game {
                 row = Integer.parseInt(parts[0]);
                 col = Integer.parseInt(parts[1]);
             } catch (NumberFormatException e) {
+                Console.println(" ");
                 Console.println("Debes ingresar números válidos.");
                 continue;
             }
@@ -47,15 +48,18 @@ public class Game {
             }
 
             if (!board.isCellEmpty(row, col)) {
+                Console.println(" ");
                 Console.println("Esa casilla ya está ocupada, elige otra.");
                 continue;
-            }
+            }0 
 
             board.placeSymbol(row, col, currentPlayer.getSymbol());
             printBoard();
 
             if (board.hasWinner()) {
                 Console.println("Felicidades " + currentPlayer.getColor() + currentPlayer.getSymbol() + "\u001B[0m has ganado!");
+                Player opponent = currentPlayer == player1 ? player2 : player1;
+                Console.println("Suerte para la próxima jugador " + opponent.getColor() + opponent.getSymbol() + "\u001B[0m");
                 break;
             }
 
