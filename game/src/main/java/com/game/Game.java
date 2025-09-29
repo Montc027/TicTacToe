@@ -1,7 +1,6 @@
 package com.game;
 
-/* import com.game.Player;
-import com.game.Console; */
+
 public class Game {
     private final Board board;
     private final Player player1;
