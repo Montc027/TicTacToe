@@ -51,7 +51,7 @@ public class Game {
                 Console.println(" ");
                 Console.println("Esa casilla ya está ocupada, elige otra.");
                 continue;
-            }0 
+            } 
 
             board.placeSymbol(row, col, currentPlayer.getSymbol());
             printBoard();
